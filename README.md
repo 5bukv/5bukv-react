@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# 5bukv-react
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Это игра "5 букв", созданная с использованием React.js. Цель игры - угадать секретное слово из пяти букв.
 
-Currently, two official plugins are available:
+## Так же
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Демо: [https://5bukv.quest](https://5bukv.quest)
+* Версия игры на [Vue](https://github.com/avenikolay/5bukv-vue)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Установка
 
-- Configure the top-level `parserOptions` property like this:
+1. Клонируйте репозиторий:
+    ```sh
+    git clone https://github.com/avenikolay/5bukv-react
+    ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+2. Перейдите в директорию проекта:
+    ```sh
+    cd 5bukv-react
+    ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Установите зависимости:
+    ```sh
+    npm install
+    ```
+
+## Запуск проекта
+
+Для запуска проекта в режиме разработки выполните:
+```sh
+npm run dev
