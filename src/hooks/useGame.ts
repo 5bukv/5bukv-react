@@ -27,8 +27,6 @@ const useGame = () => {
 
   const [modal, setModal] = useState(false);
   const [secretWord, setSecretWord] = useState('');
-  //TODO: разобраться с isGameOver
-  const [, setIsGameOver] = useState(false);
   const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.PLAYING);
   const [grid, setGrid] = useState<Cell[][]>(fillGrid());
   const [round, setRound] = useState<0 | 1 | 2 | 3 | 4 | 5>(0);
@@ -62,7 +60,6 @@ const useGame = () => {
     setGrid(fillGrid());
     setRound(0);
     setCell(0);
-    setIsGameOver(false);
     setGameStatus(GameStatus.PLAYING);
     resetButtons();
     const number = getRandomNumber(0, words.length - 1);
@@ -99,13 +96,11 @@ const useGame = () => {
   const checkGameStatus = useCallback(
     (result: CompareWordsResult) => {
       if (result.status === RoundStatus.WIN) {
-        setIsGameOver(true);
         setGameStatus(GameStatus.WIN);
         setModal(true);
         return true;
       }
       if (round === MAX_ROUNDS - 1) {
-        setIsGameOver(true);
         setGameStatus(GameStatus.LOSE);
         setModal(true);
         return true;
