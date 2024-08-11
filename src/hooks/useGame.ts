@@ -1,18 +1,18 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 
-import useButtons from "./useButtons.ts";
-import useTooltip from "./useTooltip.ts";
-import words from "../data/words.json";
-import { ErrorStatus } from "../enums/errorStatus.ts";
-import { GameStatus } from "../enums/gameStatus.ts";
-import { LetterStatus } from "../enums/letterStatus.ts";
-import { RoundStatus } from "../enums/roundStatus.ts";
-import { TOOLTIP_MESSAGE } from "../enums/tooltipMessage.ts";
-import compareWords from "../libs/compareWords.ts";
-import getRandomNumber from "../libs/getRandomNumber.ts";
-import reduceWord from "../libs/reduceWord.ts";
-import { Cell } from "../types/Cell";
-import { CompareWordsResult } from "../types/CompareWordsResult";
+import useButtons from './useButtons.ts';
+import useTooltip from './useTooltip.ts';
+import words from '../data/words.json';
+import { ErrorStatus } from '../enums/errorStatus.ts';
+import { GameStatus } from '../enums/gameStatus.ts';
+import { LetterStatus } from '../enums/letterStatus.ts';
+import { RoundStatus } from '../enums/roundStatus.ts';
+import { TOOLTIP_MESSAGE } from '../enums/tooltipMessage.ts';
+import compareWords from '../libs/compareWords.ts';
+import getRandomNumber from '../libs/getRandomNumber.ts';
+import reduceWord from '../libs/reduceWord.ts';
+import { Cell } from '../types/Cell';
+import { CompareWordsResult } from '../types/CompareWordsResult';
 
 const useGame = () => {
   const { buttons, updateButtonStatus, resetButtons } = useButtons();
@@ -21,11 +21,11 @@ const useGame = () => {
     preventCloseTooltip,
     getTooltipMessageByLetterStatus,
     triggerTooltip,
-    hideTooltip,
+    hideTooltip
   } = useTooltip();
 
   const [modal, setModal] = useState(false);
-  const [secretWord, setSecretWord] = useState("");
+  const [secretWord, setSecretWord] = useState('');
   //TODO: разобраться с isGameOver
   const [, setIsGameOver] = useState(false);
   const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.PLAYING);
@@ -37,13 +37,13 @@ const useGame = () => {
     type: ErrorStatus | null;
   }>({
     active: false,
-    type: null,
+    type: null
   });
 
   const usedWords = useMemo(() => {
     return grid
       .slice(0, round)
-      .map((row) => row.map((cell) => cell.letter).join(""))
+      .map((row) => row.map((cell) => cell.letter).join(''))
       .filter((word) => word.trim().length === 5);
   }, [grid, round]);
 
@@ -53,7 +53,7 @@ const useGame = () => {
       .map(() =>
         Array(5)
           .fill(null)
-          .map(() => ({ letter: "", status: LetterStatus.DEFAULT })),
+          .map(() => ({ letter: '', status: LetterStatus.DEFAULT }))
       );
   }
 
@@ -79,18 +79,18 @@ const useGame = () => {
         setCell((prevCell) => (prevCell + 1) as 0 | 1 | 2 | 3 | 4);
       }
     },
-    [grid, round, cell],
+    [grid, round, cell]
   );
 
   const onClearLetter = useCallback(() => {
     if (cell === 0) return;
     const newGrid = [...grid];
-    if (cell === 4 && newGrid[round][cell].letter !== "") {
-      newGrid[round][cell].letter = "";
+    if (cell === 4 && newGrid[round][cell].letter !== '') {
+      newGrid[round][cell].letter = '';
       setGrid(newGrid);
       return;
     }
-    newGrid[round][cell - 1].letter = "";
+    newGrid[round][cell - 1].letter = '';
     setCell((prevCell) => (prevCell - 1) as 0 | 1 | 2 | 3 | 4);
     setGrid(newGrid);
   }, [grid, round, cell]);
@@ -111,7 +111,7 @@ const useGame = () => {
       }
       return false;
     },
-    [round],
+    [round]
   );
 
   const updateStatuses = useCallback(
@@ -124,7 +124,7 @@ const useGame = () => {
       });
       setGrid(newGrid);
     },
-    [grid, updateButtonStatus],
+    [grid, updateButtonStatus]
   );
 
   const triggerErrorAnimation = useCallback(() => {
@@ -137,26 +137,23 @@ const useGame = () => {
     });
   }, [errorState]);
 
-  const getTargetPosition = useCallback(
-    ({ proposedWord }: CompareWordsResult) => {
-      let cellIndex = 0;
-      for (let index = 0; index < proposedWord.length; index++) {
-        if (proposedWord[index].status === LetterStatus.WRONG_PLACE) {
-          cellIndex = index;
-        } else if (proposedWord[index].status === LetterStatus.NOT_IN_WORD) {
-          cellIndex = index;
-          break;
-        }
+  const getTargetPosition = useCallback(({ proposedWord }: CompareWordsResult) => {
+    let cellIndex = 0;
+    for (let index = 0; index < proposedWord.length; index++) {
+      if (proposedWord[index].status === LetterStatus.WRONG_PLACE) {
+        cellIndex = index;
+      } else if (proposedWord[index].status === LetterStatus.NOT_IN_WORD) {
+        cellIndex = index;
+        break;
       }
-      return cellIndex;
-    },
-    [],
-  );
+    }
+    return cellIndex;
+  }, []);
 
   const onCheckWord = useCallback(async () => {
     const currentRow = grid[round];
 
-    if (cell !== 4 || currentRow[cell].letter === "") return;
+    if (cell !== 4 || currentRow[cell].letter === '') return;
 
     const reducedWord = reduceWord(currentRow);
     if (usedWords.includes(reducedWord)) {
@@ -178,9 +175,7 @@ const useGame = () => {
     if (checkGameStatus(result)) return;
 
     const cellIndex = getTargetPosition(result);
-    const tooltipStatus = getTooltipMessageByLetterStatus(
-      result.proposedWord[cellIndex].status,
-    );
+    const tooltipStatus = getTooltipMessageByLetterStatus(result.proposedWord[cellIndex].status);
     triggerTooltip(tooltipStatus, round, cellIndex);
     setCell(0);
     setRound((prevRound) => (prevRound + 1) as 0 | 1 | 2 | 3 | 4 | 5);
@@ -194,7 +189,7 @@ const useGame = () => {
     updateStatuses,
     checkGameStatus,
     getTargetPosition,
-    getTooltipMessageByLetterStatus,
+    getTooltipMessageByLetterStatus
   ]);
 
   const onCellClick = useCallback(
@@ -210,7 +205,7 @@ const useGame = () => {
       const message = getTooltipMessageByLetterStatus(data.status);
       triggerTooltip(message, data.rowIndex, data.cellIndex);
     },
-    [tooltip, hideTooltip, getTooltipMessageByLetterStatus, triggerTooltip],
+    [tooltip, hideTooltip, getTooltipMessageByLetterStatus, triggerTooltip]
   );
 
   return {
@@ -229,7 +224,7 @@ const useGame = () => {
     onClearLetter,
     onCheckWord,
     triggerTooltip,
-    setModal,
+    setModal
   };
 };
 export default useGame;

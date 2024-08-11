@@ -1,4 +1,4 @@
-import { TooltipEmojis, TooltipMessages } from "@/constants/tooltipMessages";
+import { TooltipEmojis, TooltipMessages } from '@/constants/tooltipMessages';
 
 export type TooltipPosition = {
   rowIndex: number;

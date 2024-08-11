@@ -1,4 +1,4 @@
 export enum KeyboardType {
   SERVICE,
-  LETTER,
+  LETTER
 }

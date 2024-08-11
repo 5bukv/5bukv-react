@@ -1,4 +1,4 @@
-import { LetterStatus } from "@/enums/letterStatus";
+import { LetterStatus } from '@/enums/letterStatus';
 
 export type Cell = {
   letter: string;

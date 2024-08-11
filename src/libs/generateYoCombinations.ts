@@ -9,14 +9,14 @@ export default function generateYoCombinations(word: string): string[] {
       return;
     }
 
-    if (wordInUpperCase[index] === "Е" || wordInUpperCase[index] === "Ё") {
-      generate(current + "Е", index + 1);
-      generate(current + "Ё", index + 1);
+    if (wordInUpperCase[index] === 'Е' || wordInUpperCase[index] === 'Ё') {
+      generate(current + 'Е', index + 1);
+      generate(current + 'Ё', index + 1);
     } else {
       generate(current + wordInUpperCase[index], index + 1);
     }
   };
 
-  generate("", 0);
+  generate('', 0);
   return combinations;
 }

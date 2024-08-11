@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
 
-import useClickOutside from "../hooks/useClickOutside.ts";
-import { Tooltip } from "../types/Tooltip";
+import useClickOutside from '../hooks/useClickOutside.ts';
+import { Tooltip } from '../types/Tooltip';
 
 interface CellTooltipProps {
   config: Tooltip;
@@ -10,12 +10,7 @@ interface CellTooltipProps {
   onHide: () => void;
 }
 
-const CellTooltip: React.FC<CellTooltipProps> = ({
-  config,
-  rowIndex,
-  cellIndex,
-  onHide,
-}) => {
+const CellTooltip: React.FC<CellTooltipProps> = ({ config, rowIndex, cellIndex, onHide }) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(
@@ -23,9 +18,7 @@ const CellTooltip: React.FC<CellTooltipProps> = ({
     () => {
       onHide();
     },
-    config.show &&
-      rowIndex === config.position.rowIndex &&
-      cellIndex === config.position.cellIndex,
+    config.show && rowIndex === config.position.rowIndex && cellIndex === config.position.cellIndex
   );
 
   return (
@@ -36,22 +29,19 @@ const CellTooltip: React.FC<CellTooltipProps> = ({
         config.show &&
         rowIndex === config.position.rowIndex &&
         cellIndex === config.position.cellIndex
-          ? "opacity-100 [transform:translateY(0)_translateZ(1px)_scale(1)]"
-          : "pointer-events-none opacity-0 [transform:translateY(-4px)_translateZ(1px)_scale(0.5)]"
+          ? 'opacity-100 [transform:translateY(0)_translateZ(1px)_scale(1)]'
+          : 'pointer-events-none opacity-0 [transform:translateY(-4px)_translateZ(1px)_scale(0.5)]'
       }`}
       style={{
         display:
           config.show &&
           rowIndex === config.position.rowIndex &&
           cellIndex === config.position.cellIndex
-            ? "block"
-            : "none",
+            ? 'block'
+            : 'none'
       }}
     >
-      <span
-        className="block"
-        dangerouslySetInnerHTML={{ __html: config.message }}
-      />
+      <span className="block" dangerouslySetInnerHTML={{ __html: config.message }} />
       <span className="mt-1 block">{config.emoji}</span>
     </div>
   );

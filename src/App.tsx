@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import AppModal from "./components/AppModal";
-import CellTooltip from "./components/CellTooltip";
-import KeyboardKey from "./components/KeyboardKey";
-import RoundCell from "./components/RoundCell";
-import { GameStatus } from "./enums/gameStatus";
-import useGame from "./hooks/useGame";
+import AppModal from './components/AppModal';
+import CellTooltip from './components/CellTooltip';
+import KeyboardKey from './components/KeyboardKey';
+import RoundCell from './components/RoundCell';
+import { GameStatus } from './enums/gameStatus';
+import useGame from './hooks/useGame';
 
 const App: React.FC = () => {
   const {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
     onClearLetter,
     onCheckWord,
     onCellClick,
-    setModal,
+    setModal
   } = useGame();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const App: React.FC = () => {
             {grid.map((row, rowIndex) => (
               <div
                 key={rowIndex}
-                className={`flex space-x-1.5 ${errorState.active && rowIndex === round ? "animate-shake text-error-red" : ""}`}
+                className={`flex space-x-1.5 ${errorState.active && rowIndex === round ? 'animate-shake text-error-red' : ''}`}
               >
                 {row.map((cell, cellIndex) => (
                   <RoundCell
@@ -84,16 +84,16 @@ const App: React.FC = () => {
         <div className="w-full max-w-[616px] rounded-3xl bg-[#2c2c2e] px-20 py-12 text-center">
           <p className="mb-4 text-center text-xl font-semibold text-[#ffdd2d]">
             {gameStatus === GameStatus.PLAYING
-              ? "Отгадайте первое слово"
+              ? 'Отгадайте первое слово'
               : gameStatus === GameStatus.WIN
-                ? "Вы отгадали слово!"
-                : "Вы не отгадали слово"}
+                ? 'Вы отгадали слово!'
+                : 'Вы не отгадали слово'}
           </p>
           <button
             onClick={onStartGame}
             className="mx-auto rounded-2xl bg-white px-6 py-4 text-[17px] font-normal text-[#333]"
           >
-            {gameStatus === GameStatus.PLAYING ? "Начать игру" : "Играть снова"}
+            {gameStatus === GameStatus.PLAYING ? 'Начать игру' : 'Играть снова'}
           </button>
         </div>
       </AppModal>

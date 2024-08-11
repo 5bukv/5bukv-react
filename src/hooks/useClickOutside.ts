@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 const useClickOutside = (
   ref: React.RefObject<HTMLElement>,
   handler: (event: MouseEvent | TouchEvent) => void,
-  active: boolean,
+  active: boolean
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -13,13 +13,13 @@ const useClickOutside = (
     };
 
     if (active) {
-      document.addEventListener("click", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside);
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [ref, handler, active]);
 };

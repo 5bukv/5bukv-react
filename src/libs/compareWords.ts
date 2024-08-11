@@ -1,11 +1,11 @@
-import generateYoCombinations from "./generateYoCombinations.ts";
-import reduceWord from "./reduceWord.ts";
-import replaceYo from "./replaceYo.ts";
-import words from "../data/words.json";
-import { LetterStatus } from "../enums/letterStatus.ts";
-import { RoundStatus } from "../enums/roundStatus.ts";
-import { CompareWordsResult } from "../types/CompareWordsResult";
-import { ProposedLetter } from "../types/ProposedLetter";
+import generateYoCombinations from './generateYoCombinations.ts';
+import reduceWord from './reduceWord.ts';
+import replaceYo from './replaceYo.ts';
+import words from '../data/words.json';
+import { LetterStatus } from '../enums/letterStatus.ts';
+import { RoundStatus } from '../enums/roundStatus.ts';
+import { CompareWordsResult } from '../types/CompareWordsResult';
+import { ProposedLetter } from '../types/ProposedLetter';
 
 function checkWordExist(word: string) {
   const combinations = generateYoCombinations(word);
@@ -14,7 +14,7 @@ function checkWordExist(word: string) {
 
 export default function compareWords(
   proposedWord: ProposedLetter[],
-  secretWord: string,
+  secretWord: string
 ): CompareWordsResult {
   const isWordExist = checkWordExist(reduceWord(proposedWord));
   const normalizedSecretWord = replaceYo(secretWord);
@@ -23,11 +23,11 @@ export default function compareWords(
     return { status: RoundStatus.NOT_FOUND, proposedWord };
   }
 
-  const secretWordArray: Array<string | null> = normalizedSecretWord.split("");
+  const secretWordArray: Array<string | null> = normalizedSecretWord.split('');
 
   const result: ProposedLetter[] = proposedWord.map((letterObj) => ({
     ...letterObj,
-    status: LetterStatus.NOT_IN_WORD,
+    status: LetterStatus.NOT_IN_WORD
   }));
 
   for (let i = 0; i < proposedWord.length; i++) {
@@ -52,6 +52,6 @@ export default function compareWords(
     status: result.every((letter) => letter.status === LetterStatus.CORRECT)
       ? RoundStatus.WIN
       : RoundStatus.NOT_GUESSED,
-    proposedWord: result,
+    proposedWord: result
   };
 }

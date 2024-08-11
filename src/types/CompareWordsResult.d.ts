@@ -1,5 +1,5 @@
-import { RoundStatus } from "@/enums/roundStatus";
-import type { ProposedLetter } from "@/types/ProposedLetter";
+import { RoundStatus } from '@/enums/roundStatus';
+import type { ProposedLetter } from '@/types/ProposedLetter';
 
 export type CompareWordsResult = {
   status: RoundStatus;
