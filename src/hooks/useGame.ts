@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import useButtons from './useButtons.ts';
 import useTooltip from './useTooltip.ts';
+import { MAX_ROUNDS, MAX_CELLS, ERROR_ANIMATION_DELAY } from '../constants/gameConfig.ts';
 import words from '../data/words.json';
 import { ErrorStatus } from '../enums/errorStatus.ts';
 import { GameStatus } from '../enums/gameStatus.ts';
@@ -48,10 +49,10 @@ const useGame = () => {
   }, [grid, round]);
 
   function fillGrid() {
-    return Array(6)
+    return Array(MAX_ROUNDS)
       .fill(null)
       .map(() =>
-        Array(5)
+        Array(MAX_CELLS)
           .fill(null)
           .map(() => ({ letter: '', status: LetterStatus.DEFAULT }))
       );
@@ -71,11 +72,11 @@ const useGame = () => {
 
   const onInput = useCallback(
     (letter: string) => {
-      if (grid[round][4].letter) return;
+      if (grid[round][MAX_CELLS - 1].letter) return;
       const newGrid = [...grid];
       newGrid[round][cell].letter = letter.toUpperCase();
       setGrid(newGrid);
-      if (cell < 4) {
+      if (cell < MAX_CELLS - 1) {
         setCell((prevCell) => (prevCell + 1) as 0 | 1 | 2 | 3 | 4);
       }
     },
@@ -85,7 +86,7 @@ const useGame = () => {
   const onClearLetter = useCallback(() => {
     if (cell === 0) return;
     const newGrid = [...grid];
-    if (cell === 4 && newGrid[round][cell].letter !== '') {
+    if (cell === MAX_CELLS - 1 && newGrid[round][cell].letter !== '') {
       newGrid[round][cell].letter = '';
       setGrid(newGrid);
       return;
@@ -103,7 +104,7 @@ const useGame = () => {
         setModal(true);
         return true;
       }
-      if (round === 5) {
+      if (round === MAX_ROUNDS - 1) {
         setIsGameOver(true);
         setGameStatus(GameStatus.LOSE);
         setModal(true);
@@ -133,7 +134,7 @@ const useGame = () => {
       setTimeout(() => {
         setErrorState({ active: false, type: null });
         resolve();
-      }, 500);
+      }, ERROR_ANIMATION_DELAY);
     });
   }, [errorState]);
 
@@ -153,7 +154,7 @@ const useGame = () => {
   const onCheckWord = useCallback(async () => {
     const currentRow = grid[round];
 
-    if (cell !== 4 || currentRow[cell].letter === '') return;
+    if (cell !== MAX_CELLS - 1 || currentRow[cell].letter === '') return;
 
     const reducedWord = reduceWord(currentRow);
     if (usedWords.includes(reducedWord)) {

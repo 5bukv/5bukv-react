@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
+import { TOOLTIP_HIDE_DELAY } from '../constants/gameConfig.ts';
 import { TooltipEmojis, TooltipMessages } from '../constants/tooltipMessages.ts';
 import { LetterStatus } from '../enums/letterStatus.ts';
 import { TOOLTIP_MESSAGE } from '../enums/tooltipMessage.ts';
@@ -43,7 +44,7 @@ const useTooltip = () => {
     }));
     tooltipTimeout.current = setTimeout(() => {
       setTooltip((prevTooltip) => ({ ...prevTooltip, show: false }));
-    }, 3000);
+    }, TOOLTIP_HIDE_DELAY);
   }, []);
 
   const hideTooltip = useCallback(() => {
