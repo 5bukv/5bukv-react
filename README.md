@@ -5,7 +5,7 @@
 ## Так же
 
 * Демо: [https://5bukv.quest](https://5bukv.quest)
-* Версия игры на [Vue](https://github.com/avenikolay/5bukv-vue)
+* Версия игры на [Vue](https://github.com/5bukv/5bukv-vue)
 
 
 ## Установка
